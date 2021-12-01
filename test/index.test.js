@@ -10,14 +10,35 @@
 // file. In this case we've defined the function and the corresponding test in the
 // same file for illustrative and learning purposes.
 
-function myCoolFunction() {
-  return 'Wow, what a cool function';
-}
+const { isAmountInvalid, isCurrencyInvalid } = require('../src/validation-functions.js');
 
-describe('myCoolFunction()', () => {
-  test('should return the message: "Wow, what a cool function"', () => {
-    const result = myCoolFunction();
+describe('isAmountInvalid()', () => {
+  test('should return true when the amount is undefined"', () => {
+    let amount = undefined;
+    const result = isAmountInvalid(amount);
+    expect(result).toBe(true);
+  });
+  test('should return true when the amount is negative"', () => {
+    let amount = -5;
+    const result = isAmountInvalid(amount);
+    expect(result).toBe(true);
+  });
+  test('should return false when the amount is a positive number"', () => {
+    let amount = 5;
+    const result = isAmountInvalid(amount);
+    expect(result).toBe(false);
+  });
+});
 
-    expect(result).toBe('Wow, what a cool function');
+describe('isCurrencyInvalid()', () => {
+  test('should return true when the currency is undefined"', () => {
+    let currency = undefined;
+    const result = isCurrencyInvalid(currency);
+    expect(result).toBe(true);
+  });
+  test('should return false when the currency is a string"', () => {
+    let currency = "CAD";
+    const result = isCurrencyInvalid(currency);
+    expect(result).toBe(false);
   });
 });
