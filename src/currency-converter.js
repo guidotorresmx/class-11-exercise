@@ -32,6 +32,18 @@ if( DEBUG ) {
 // If any of the required information is missing, display a meaningful message
 // and exit the program.
 
+if(amount === undefined || amount < 0){
+    console.log("The amount must be a number greater than 0, Received: ", amound)
+    process.exit(1);
+}
+
+if(initialCurrency === undefined){
+    console.log("The initial currency must be a valid symbol, Received: ", amound)
+}
+
+if(finalCurrency === undefined){
+    console.log("The target currency must be a valid symbol, Received: ", amound)
+}
 
 
 // --------------------------------------------------
