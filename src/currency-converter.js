@@ -103,8 +103,9 @@ if(initialCurrency === 'USD' && finalCurrency === 'CAD') {
     convertedAmount = amount * CAD;
 }
 
-console.log(convertedAmount);
-
+if ( DEBUG ) {
+    console.log(convertedAmount);
+}
 
 // --------------------------------------------------
 // Step 6: Display results
@@ -113,3 +114,5 @@ console.log(convertedAmount);
 
 // This message should also include the original amount and currency information
 // supplied by the user.
+
+console.log(`${amount} ${initialCurrency} is ${convertedAmount} ${finalCurrency}`);
