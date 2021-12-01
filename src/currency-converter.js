@@ -39,10 +39,12 @@ if(amount === undefined || amount < 0){
 
 if(initialCurrency === undefined){
     console.log("The initial currency must be a valid symbol, Received: ", amound)
+    process.exit(1);
 }
 
 if(finalCurrency === undefined){
     console.log("The target currency must be a valid symbol, Received: ", amound)
+    process.exit(1);
 }
 
 
