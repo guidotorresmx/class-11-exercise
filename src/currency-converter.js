@@ -8,6 +8,8 @@
 // differently. There are many paths and approaches that result in a perfectly
 // valid finished product.
 
+const { isAmountInvalid, isCurrencyInvalid } = require('./validation-functions.js');
+
 // --------------------------------------------------
 // Step 1: Capture user input
 // --------------------------------------------------
@@ -32,18 +34,18 @@ if( DEBUG ) {
 // If any of the required information is missing, display a meaningful message
 // and exit the program.
 
-if(amount === undefined || amount < 0){
+if(isAmountInvalid(amount)) {
     console.error("The amount must be a number greater than 0, Received: ", amount)
     process.exit(1);
 }
 
-if(initialCurrency === undefined){
-    console.error("The initial currency must be a valid symbol, Received: ", amount)
+if(isCurrencyInvalid(initialCurrency)) {
+    console.error("The initial currency must be a valid symbol, Received: ", initialCurrency)
     process.exit(1);
 }
 
-if(finalCurrency === undefined){
-    console.error("The target currency must be a valid symbol, Received: ", amount)
+if(isCurrencyInvalid(finalCurrency)) {
+    console.error("The target currency must be a valid symbol, Received: ", finalCurrency)
     process.exit(1);
 }
 
