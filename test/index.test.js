@@ -11,6 +11,7 @@
 // same file for illustrative and learning purposes.
 
 const { isAmountInvalid, isCurrencyInvalid } = require('../src/validation-functions.js');
+const { initialCurrencyToTargetCurrency } = require('../src/convertion-functions.js');
 
 describe('isAmountInvalid()', () => {
   test('should return true when the amount is undefined"', () => {
@@ -40,5 +41,26 @@ describe('isCurrencyInvalid()', () => {
     let currency = "CAD";
     const result = isCurrencyInvalid(currency);
     expect(result).toBe(false);
+  });
+});
+
+describe('initialCurrencyToTargetCurrency()', () => {
+  test('should return 20 when exchanging 1USD to MXN"', () => {
+    let currencyRates = {
+      'USD': 1,
+      'CAD': .85,
+      'MXN': .05,
+    };
+    const result = initialCurrencyToTargetCurrency(1, 'USD', 'MXN', currencyRates)
+    expect(result).toBe(20);
+  });
+  test('should return 170 when exchanging 10CAD to MXN"', () => {
+    let currencyRates = {
+      'USD': 1,
+      'CAD': .85,
+      'MXN': .05,
+    };
+    const result = initialCurrencyToTargetCurrency(10, 'CAD', 'MXN', currencyRates)
+    expect(result).toBe(170);
   });
 });
