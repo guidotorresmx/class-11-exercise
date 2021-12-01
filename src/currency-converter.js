@@ -9,6 +9,7 @@
 // valid finished product.
 
 const { isAmountInvalid, isCurrencyInvalid } = require('./validation-functions.js');
+const { initialCurrencyToTargetCurrency } = require('./convertion-functions.js');
 
 // --------------------------------------------------
 // Step 1: Capture user input
@@ -62,9 +63,12 @@ if(isCurrencyInvalid(finalCurrency)) {
 // The conversion rates do not have to be accurate, athough this resource contains
 // up-to-date rate information: https://www.xe.com/
 
-let USD = 1
-let CAD = .85
-let MXN = 1/20
+const currencyRates = {
+    'USD': 1,
+    'CAD': .85,
+    'MXN': .05,
+};
+
 // --------------------------------------------------
 // Step 4: Ensure that a conversion rate exists
 // --------------------------------------------------
@@ -75,11 +79,6 @@ let MXN = 1/20
 // warning message and exit the program.
 
 //#TODO: add conversion matrix from api call or try call to api from template url 
-const currencyRates = {
-    'USD': 1,
-    'CAD': .85,
-    'MXN': .05,
-};
 
 if( !currencyRates.hasOwnProperty(initialCurrency) ) {
     console.error("The initial currency must be one of: ", supportedCurrencies)
@@ -99,21 +98,10 @@ if( !currencyRates.hasOwnProperty(finalCurrency) ) {
 
 // Now we will compute the rate, apply it to the amount, and capture the result.
 
-
-const initialCurrencyToUSD = (amount, initialCurrency, currencyRates) =>  {
-    return amount*currencyRates[initialCurrency]    
-}
-
-const targetCurrencyFromUSD = (amount, finalCurrency, currencyRates) =>  {
-    return amount/currencyRates[finalCurrency]    
-}
-
-usdAmount = initialCurrencyToUSD(amount, initialCurrency, currencyRates)
-
-targetCurrencyAmount = targetCurrencyFromUSD(usdAmount, finalCurrency, currencyRates);
+targetCurrencyAmount = initialCurrencyToTargetCurrency(amount, initialCurrency, finalCurrency, currencyRates);
 
 if ( DEBUG ) {
-    console.log(`usdAmount: ${usdAmount}, targetCurrencyAmount: ${targetCurrencyAmount}`)
+    console.log(`targetCurrencyAmount: ${targetCurrencyAmount}`)
 }
 
 // --------------------------------------------------
