@@ -64,7 +64,7 @@ if(isCurrencyInvalid(finalCurrency)) {
 
 let USD = 1
 let CAD = .85
-
+let MXN = 1/20
 // --------------------------------------------------
 // Step 4: Ensure that a conversion rate exists
 // --------------------------------------------------
@@ -74,17 +74,19 @@ let CAD = .85
 // If the user supplies an invalid initial or target currency, display a meaningful
 // warning message and exit the program.
 
-const supportedCurrencies = [
-    'USD',
-    'CAD',
-];
+//#TODO: add conversion matrix from api call or try call to api from template url 
+const currencyRates = {
+    'USD': 1,
+    'CAD': .85,
+    'MXN': .05,
+};
 
-if( !supportedCurrencies.includes(initialCurrency) ) {
+if( !currencyRates.hasOwnProperty(initialCurrency) ) {
     console.error("The initial currency must be one of: ", supportedCurrencies)
     process.exit(1);
 }
 
-if( !supportedCurrencies.includes(initialCurrency) ) {
+if( !currencyRates.hasOwnProperty(finalCurrency) ) {
     console.error("The target currency must be one of: ", supportedCurrencies)
     process.exit(1);
 }
@@ -97,16 +99,21 @@ if( !supportedCurrencies.includes(initialCurrency) ) {
 
 // Now we will compute the rate, apply it to the amount, and capture the result.
 
-let convertedAmount;
 
-if(initialCurrency === 'USD' && finalCurrency === 'CAD') {
-    convertedAmount = amount / CAD;
-}else if(initialCurrency === 'CAD' && finalCurrency === 'USD') {
-    convertedAmount = amount * CAD;
+const initialCurrencyToUSD = (amount, initialCurrency, currencyRates) =>  {
+    return amount*currencyRates[initialCurrency]    
 }
 
+const targetCurrencyFromUSD = (amount, finalCurrency, currencyRates) =>  {
+    return amount/currencyRates[finalCurrency]    
+}
+
+usdAmount = initialCurrencyToUSD(amount, initialCurrency, currencyRates)
+
+targetCurrencyAmount = targetCurrencyFromUSD(usdAmount, finalCurrency, currencyRates);
+
 if ( DEBUG ) {
-    console.log(convertedAmount);
+    console.log(`usdAmount: ${usdAmount}, targetCurrencyAmount: ${targetCurrencyAmount}`)
 }
 
 // --------------------------------------------------
@@ -117,4 +124,4 @@ if ( DEBUG ) {
 // This message should also include the original amount and currency information
 // supplied by the user.
 
-console.log(`${amount} ${initialCurrency} is ${convertedAmount} ${finalCurrency}`);
+console.log(`${amount} ${initialCurrency} is ${targetCurrencyAmount} ${finalCurrency}`);
