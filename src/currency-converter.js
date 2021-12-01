@@ -33,17 +33,17 @@ if( DEBUG ) {
 // and exit the program.
 
 if(amount === undefined || amount < 0){
-    console.log("The amount must be a number greater than 0, Received: ", amound)
+    console.error("The amount must be a number greater than 0, Received: ", amount)
     process.exit(1);
 }
 
 if(initialCurrency === undefined){
-    console.log("The initial currency must be a valid symbol, Received: ", amound)
+    console.error("The initial currency must be a valid symbol, Received: ", amount)
     process.exit(1);
 }
 
 if(finalCurrency === undefined){
-    console.log("The target currency must be a valid symbol, Received: ", amound)
+    console.error("The target currency must be a valid symbol, Received: ", amount)
     process.exit(1);
 }
 
